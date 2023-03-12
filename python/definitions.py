@@ -131,6 +131,7 @@ def configureJetMETCorrections(tree, era, isNotWorker, isMC, backend, sampleName
     else:
         sources = None
         runEra = utils.getRunEra(sampleName)
+
         """
         configureJets(tree._Jet, "AK4PFchs", jec=JECTagDatabase[era][runEra],
                       jecLevels=[], # NOTE: not re-applying the JEC, only computing uncertainties!,
