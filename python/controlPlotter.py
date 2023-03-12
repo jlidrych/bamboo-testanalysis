@@ -68,8 +68,8 @@ class controlPlotter(recoBasePlotter):
 
         ##### Plots for ==1 lepton, >=2 jets, >= 1 b jets ######
 
-        oneMu2Jet1BSel = oneMu4JetSel.refine("muon_2jets_1b", cut=op.rng_len(s.bJetsM) >= 1, weight=s.bTagWeight)
-        oneEle2Jet1BSel = oneEle4JetSel.refine("ele_2jets_1b", cut=op.rng_len(s.bJetsM) >= 1, weight=s.bTagWeight)
+        oneMu2Jet1BSel = oneMu2JetSel.refine("muon_2jets_1b", cut=op.rng_len(s.bJetsM) >= 1, weight=s.bTagWeight)
+        oneEle2Jet1BSel = oneEle2JetSel.refine("ele_2jets_1b", cut=op.rng_len(s.bJetsM) >= 1, weight=s.bTagWeight)
         yields.add(oneMu2Jet1BSel, "1mu2j1b")
         yields.add(oneEle2Jet1BSel, "1ele2j1b")
 
@@ -82,7 +82,7 @@ class controlPlotter(recoBasePlotter):
             f"1lep_2j_1b", "nJets", EqBin(8, 2, 10), title="Number of jets", var=op.rng_len(s.cleanedJets))
 
         plots += utils.makeMergedPlots(
-            [(f"1mu_2j_1b", oneMu4Jet2BSel), (f"1ele_4j_2b", oneEle2Jet1BSel)],
+            [(f"1mu_2j_1b", oneMu2Jet1BSel), (f"1ele_2j_1b", oneEle2Jet1BSel)],
             f"1lep_2j_1b", "nBDeepFlavM", EqBin(5, 2, 7), title="Number of medium b-tagged jets", var=op.rng_len(s.bJetsM))
 
         for sel,lep,name in [(oneMu2Jet1BSel, s.muon, f"1mu_2j_1b"), (oneEle2Jet1BSel, s.electron, f"1ele_2j_1b")]:

@@ -130,8 +130,8 @@ def configureJetMETCorrections(tree, era, isNotWorker, isMC, backend, sampleName
 
     else:
         sources = None
-        runEra = utils.getRunEra(sample)
-
+        runEra = utils.getRunEra(sampleName)
+        """
         configureJets(tree._Jet, "AK4PFchs", jec=JECTagDatabase[era][runEra],
                       jecLevels=[], # NOTE: not re-applying the JEC, only computing uncertainties!,
                       # NOTE: if left out the recommendations are used: L1FastJet, L2Relative, L3Absolute, and also L2L3Residual for data
@@ -148,6 +148,8 @@ def configureJetMETCorrections(tree, era, isNotWorker, isMC, backend, sampleName
                             jecLevels=[], # NOTE: not re-applying the JEC, only computing uncertainties!
                             mayWriteCache=isNotWorker,
                             isMC=isMC, backend=backend, uName=sampleName)
+        """
+
 #### Reco-level object definitions
 
 
@@ -275,7 +277,7 @@ def jetDef(jet):
 def fatjetDef(fatjet):
     return op.AND(
         fatjet.pt > 200., op.abs(fatjet.eta) < 2.4,
-        fatjet.jetID & 2,
+        fatjet.jetId & 2,
     )
 
 # Clean jets from leptons -> since we have veto'd extra loose leptons we
