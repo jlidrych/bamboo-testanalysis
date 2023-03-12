@@ -1,0 +1,171 @@
+tree: Events
+
+eras:
+    2018UL:
+        luminosity: 59830.
+    2017UL:
+        luminosity: 41480.
+    2016ULpostVFP:
+        luminosity: 16800.
+    2016ULpreVFP:
+        luminosity: 19500.
+
+dbcache: dascache
+
+plotIt:
+    configuration:
+        width: 600
+        height: 800
+        luminosity-label: '%1$.0f fb^{-1} (13 TeV)'
+        experiment: CMS
+        extra-label: Preliminary
+        luminosity-error: 0.025
+        show-overflow: true
+        error-fill-style: 3154
+        error-fill-color: "#ee556270"
+        ratio-fit-error-fill-style: 1001
+        ratio-fit-error-fill-color: "#aa556270"
+        ratio-fit-line-color: "#0B486B"
+        y-axis-format: "%1% / %2$.2f"
+    legend:
+        position: [0.7, 0.6, 0.91, 0.91]
+    
+    groups:
+        data:
+            legend: Data
+        WJets:
+            legend: 'W+jets'
+            fill-color: "#d73027"
+            line-width: 1
+            line-color: 1
+            line-style: 1
+            order: 0
+        ZJets:
+            legend: 'Z+jets'
+            fill-color: "#fc8d59"
+            line-width: 1
+            line-color: 1
+            line-style: 1
+            order: 1
+        ttjj:
+            legend: 't#bar{t}'
+            mpl_legend: '$\mathrm{t}\overline{\mathrm{t}}$+light'
+            fill-color: "#fee090"
+            line-width: 1
+            line-color: 1
+            line-style: 1
+            order: 2
+        ttX:
+            legend: 't#bar{t}X'
+            mpl_legend: '$\mathrm{t}\overline{\mathrm{t}}+X$'
+            fill-color: "#e0f3f8"
+            line-width: 1
+            line-color: 1
+            line-style: 1
+            order: 3
+        ttV:
+            legend: 't#bar{t}V'
+            mpl_legend: '$\mathrm{t}\overline{\mathrm{t}}\mathrm{V}$'
+            fill-color: "#91bfdb"
+            line-width: 1
+            line-color: 1
+            line-style: 1
+            order: 4
+        ST:
+            legend: 'Single t'
+            mpl_legend: 'Single $\mathrm{t}$'
+            fill-color: "#4575b4"
+            line-width: 1
+            line-color: 1
+            line-style: 1
+            order: 5
+
+    systematics: # this list is only used for control plots
+        - muon_ID
+        - muon_iso
+        - muon_trigger
+        - electron_reco
+        - electron_ID
+        - electron_trigger
+        - L1prefire
+        - pileup
+        - btagSF_deepjet_shape_lf
+        - btagSF_deepjet_shape_hf
+        - btagSF_deepjet_shape_hfstats1_2016ULpreVFP
+        - btagSF_deepjet_shape_hfstats2_2016ULpreVFP
+        - btagSF_deepjet_shape_lfstats1_2016ULpreVFP
+        - btagSF_deepjet_shape_lfstats2_2016ULpreVFP
+        - btagSF_deepjet_shape_hfstats1_2016ULpostVFP
+        - btagSF_deepjet_shape_hfstats2_2016ULpostVFP
+        - btagSF_deepjet_shape_lfstats1_2016ULpostVFP
+        - btagSF_deepjet_shape_lfstats2_2016ULpostVFP
+        - btagSF_deepjet_shape_hfstats1_2017UL
+        - btagSF_deepjet_shape_hfstats2_2017UL
+        - btagSF_deepjet_shape_lfstats1_2017UL
+        - btagSF_deepjet_shape_lfstats2_2017UL
+        - btagSF_deepjet_shape_hfstats1_2018UL
+        - btagSF_deepjet_shape_hfstats2_2018UL
+        - btagSF_deepjet_shape_lfstats1_2018UL
+        - btagSF_deepjet_shape_lfstats2_2018UL
+        - btagSF_deepjet_shape_cferr1
+        - btagSF_deepjet_shape_cferr2
+        - btagSF_deepjet_fixWP_light
+        - btagSF_deepjet_fixWP_light_2016ULpreVFP
+        - btagSF_deepjet_fixWP_light_2016ULpostVFP
+        - btagSF_deepjet_fixWP_light_2017UL
+        - btagSF_deepjet_fixWP_light_2018UL
+        - btagSF_deepjet_fixWP_heavy
+        - btagSF_deepjet_fixWP_heavy_2016ULpreVFP
+        - btagSF_deepjet_fixWP_heavy_2016ULpostVFP
+        - btagSF_deepjet_fixWP_heavy_2017UL
+        - btagSF_deepjet_fixWP_heavy_2018UL
+        - btagSF_deepjet_fixWP_isr
+        - btagSF_deepjet_fixWP_fsr
+        - btagSF_deepjet_fixWP_hdamp
+        - btagSF_deepjet_fixWP_qcdscale
+        - btagSF_deepjet_fixWP_topmass
+        - btagSF_deepjet_fixWP_type3
+        - btagSF_deepjet_fixWP_jes
+        - btagSF_deepjet_fixWP_statistic_2016ULpreVFP
+        - btagSF_deepjet_fixWP_statistic_2016ULpostVFP
+        - btagSF_deepjet_fixWP_statistic_2017UL
+        - btagSF_deepjet_fixWP_statistic_2018UL
+        - jer
+        - jer0
+        - jer1
+        #- jer2
+        #- jer3
+        #- jer4
+        #- jer5
+        # in principle there is no double counting in the plots because
+        # we never produce the total and the Merged scheme simultaneously
+        - jesTotal
+        - jesFlavorQCD
+        - jesEC2
+        - jesHF
+        - jesRelativeBal
+        - jesAbsolute
+        - jesBBEC1
+        - jesRelativeSample_2017
+        - jesAbsolute_2017
+        - jesBBEC1_2017
+        - jesEC2_2017
+        - jesHF_2017
+        - jesRelativeSample_2016
+        - jesAbsolute_2016
+        - jesBBEC1_2016
+        - jesEC2_2016
+        - jesHF_2016
+        - jesRelativeSample_2018
+        - jesAbsolute_2018
+        - jesBBEC1_2018
+        - jesEC2_2018
+        - jesHF_2018
+        - pdf
+        - qcdScale
+        - qcdMuF
+        - qcdMuR
+        - psISR
+        - psFSR
+        - hdamp
+        - tune
