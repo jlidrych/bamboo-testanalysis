@@ -78,3 +78,5 @@ bamboo_start
 ```bash
 bambooRun -m /path/to/your/bambooclone/examples/nanozmumu.py:NanoZMuMu /path/to/your/bambooclone/examples/test1.yml -o test1
 ```
+## Notes
+- this code is based on [ttbbRun2Bamboo](https://gitlab.cern.ch/swertz/ttbbRun2Bamboo/)
