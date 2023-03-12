@@ -33,7 +33,7 @@ def getNanoAODDescription(era, isMC, doRocCor=True):
 
     if isMC:
         mcGroups = ["Pileup_", "GenMET_", "Generator_"]
-        mcCollections = ["nGenDressedLepton", "nGenJet", "nGenPart","GenJetAK8"]
+        mcCollections = ["nGenDressedLepton", "nGenJet", "nGenPart","nGenJetAK8"]
         # NOTE: not adding the Jet module to data because the JECs in nanoAODv9 are up-to-date... but this could change!
         # NOTE: not including MET since we're not using it... but this could change
         # NOTE: no corrections to softdrop FatJet=("pt", "mass", "msoftdrop")
@@ -131,7 +131,6 @@ def configureJetMETCorrections(tree, era, isNotWorker, isMC, backend, sampleName
     else:
         sources = None
         runEra = utils.getRunEra(sampleName)
-
         """
         configureJets(tree._Jet, "AK4PFchs", jec=JECTagDatabase[era][runEra],
                       jecLevels=[], # NOTE: not re-applying the JEC, only computing uncertainties!,
@@ -150,7 +149,6 @@ def configureJetMETCorrections(tree, era, isNotWorker, isMC, backend, sampleName
                             mayWriteCache=isNotWorker,
                             isMC=isMC, backend=backend, uName=sampleName)
         """
-
 #### Reco-level object definitions
 
 

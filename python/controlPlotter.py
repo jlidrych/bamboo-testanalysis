@@ -49,17 +49,19 @@ class controlPlotter(recoBasePlotter):
 
         yields = CutFlowReport(s.yieldsPrefix)
         plots.append(yields)
-
+        ###### Plots for ==1 lepton, >=0 jets ######
+        oneMu0JetSel = oneMuTriggerSel.refine("muon_0jets",cut=True)
+        oneEle0JetSel = oneEleTriggerSel.refine("ele_0jets",cut=True)
         ###### Plots for ==1 lepton, >=1 jets ######
-
         oneJetSel = op.rng_len(s.cleanedJets) >= 1
         oneMu1JetSel = oneMuTriggerSel.refine("muon_1jets", cut=oneJetSel)
         oneEle1JetSel = oneEleTriggerSel.refine("ele_1jets", cut=oneJetSel)
-        # for sel,lep,name in [(oneMu4JetSel, s.muon, "1mu_4j"), (oneEle4JetSel, s.electron, "1ele_4j")]:
-        #     plots += cp.makeLeptonPlots(sel, lep, name)
-        #     plots += cp.makeJetPlots(sel, s.cleanedJets, name)
-        #     plots += cp.makeMETPlots(sel, lep, s.corrMET, name)
-        #     plots += cp.makeBJetPlots(sel, s.cleanedJetsByDeepFlav, name + "_byDeepFlav")
+        
+        for sel,lep,name in [(oneMu0JetSel, s.muon, "1mu_0j"), (oneEle0JetSel, s.electron, "1ele_0j")]:
+             plots += cp.makeLeptonPlots(sel, lep, name)
+             plots += cp.makeJetPlots(sel, s.cleanedJets, name)
+             plots += cp.makeMETPlots(sel, lep, s.corrMET, name)
+             plots += cp.makeBJetPlots(sel, s.cleanedJetsByDeepFlav, name + "_byDeepFlav")
 
         ###### Plots for ==1 lepton, >=2 jets ######
         twoJetSel = op.rng_len(s.cleanedJets) >= 2

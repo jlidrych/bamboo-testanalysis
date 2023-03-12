@@ -78,5 +78,10 @@ bamboo_start
 ```bash
 bambooRun -m /path/to/your/bambooclone/examples/nanozmumu.py:NanoZMuMu /path/to/your/bambooclone/examples/test1.yml -o test1
 ```
+## To test your code, move to the ```python``` directory and run:
+```bash
+bambooRun -m controlPlotter.py ../config/analysis.yml -o ../test/myPlots --samples ../config/samples_template.yml --test
+```
+
 ## Notes
 - this code is based on [ttbbRun2Bamboo](https://gitlab.cern.ch/swertz/ttbbRun2Bamboo/)
