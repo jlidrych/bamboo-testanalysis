@@ -131,24 +131,24 @@ def configureJetMETCorrections(tree, era, isNotWorker, isMC, backend, sampleName
     else:
         sources = None
         runEra = utils.getRunEra(sampleName)
-        """
+        """"      
         configureJets(tree._Jet, "AK4PFchs", jec=JECTagDatabase[era][runEra],
-                      jecLevels=[], # NOTE: not re-applying the JEC, only computing uncertainties!,
+#                      jecLevels=[], # NOTE: not re-applying the JEC, only computing uncertainties!,
                       # NOTE: if left out the recommendations are used: L1FastJet, L2Relative, L3Absolute, and also L2L3Residual for data
                       mayWriteCache=isNotWorker, 
                       isMC=isMC, backend=backend, uName=sampleName)
-
+        
         if configMET:
             configureType1MET(tree._MET, jec=JECTagDatabase[era][runEra],
                                 mayWriteCache=isNotWorker,
                                 isMC=isMC, backend=backend, uName=sampleName)
-
+        
         if configFatJet:
             configureJets(tree._FatJet, "AK8PFPuppi", jec=JECTagDatabase[era], smear=JERTagDatabase[era],
                             jecLevels=[], # NOTE: not re-applying the JEC, only computing uncertainties!
                             mayWriteCache=isNotWorker,
                             isMC=isMC, backend=backend, uName=sampleName)
-        """
+        """        
 #### Reco-level object definitions
 
 

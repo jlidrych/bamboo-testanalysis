@@ -49,7 +49,7 @@ def makeJetPlots(sel, jets, uname, maxJet=4, binScaling=1, allJets=False):
 
     return plots
 
-def makeFatjetPlots(sel, fatjets, uname, maxJet=4, binScaling=1, allJets=False):
+def makeFatJetPlots(sel, fatjets, uname, maxJet=4, binScaling=1, allJets=False):
     plots = []
 
     if allJets:
@@ -71,7 +71,13 @@ def makeFatjetPlots(sel, fatjets, uname, maxJet=4, binScaling=1, allJets=False):
 
     for i in range(maxJet):
         plots.append(Plot.make1D(f"{uname}_fatjet{i+1}_pt", fatjets[i].pt, sel,
-                EqBin(70 // binScaling, 30., 730. - min(4, i) * 100), title=f"{utils.getCounter(i+1)} fatjet p_{{T}} (GeV)",
+                EqBin(80 // binScaling, 200., 1000. - min(4, i) * 100), title=f"{utils.getCounter(i+1)} fatjet p_{{T}} (GeV)",
+                plotopts=utils.getOpts(uname)))
+        plots.append(Plot.make1D(f"{uname}_fatjets{i+1}_mass", fatjets[i].mass, sel,
+                EqBin(50 // binScaling, 0., 250.), title=f"{utils.getCounter(i+1)} fatjets mass (GeV)",
+                plotopts=utils.getOpts(uname)))
+        plots.append(Plot.make1D(f"{uname}_fatjets{i+1}_sdmass", fatjets[i].msoftdrop, sel,
+                EqBin(50 // binScaling, 0., 250.), title=f"{utils.getCounter(i+1)} fatjets SD mass (GeV)",
                 plotopts=utils.getOpts(uname)))
 
     return plots
@@ -127,6 +133,24 @@ def makeMETPlots(sel, lepton, met, uname, binScaling=1):
 
     return plots
 
+def makeDijetPlots(sel,jet, uname, binScaling=1):
+    plots = []
+
+    mjj = op.invariant_mass(jet[0].p4,jet[1].p4)
+    deltaeta = op.abs(jet[0].p4.Eta() - jet[1].p4.Eta())
+    deltaphi = op.Phi_mpi_pi(jet[0].p4.Phi() - jet[1].p4.Phi())
+
+    plots.append(Plot.make1D(f"{uname}_dijet_mjj", mjj, sel,
+                             EqBin(200 // binScaling, 0., 1000.), title="dijet M_{jj} (GeV)",
+                             plotopts=utils.getOpts(uname)))
+    plots.append(Plot.make1D(f"{uname}_dijet_abseta", deltaeta, sel,
+                             EqBin(60 // binScaling, 0., 5.), title="dijet #Delta#eta_{jj}",
+                             plotopts=utils.getOpts(uname)))
+    plots.append(Plot.make1D(f"{uname}_dijet_deltaphi", deltaphi, sel,
+                             EqBin(60 // binScaling, -3.14, 3.14), title="dijet #Delta#phi_{jj}",
+                             plotopts=utils.getOpts(uname)))
+
+    return plots
 
 def makeHEMPlots(sel, lepton, jets, uname):
     plots = []
