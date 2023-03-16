@@ -409,7 +409,7 @@ WJetsToLNu_HT-1200To2500_TuneCP5_13TeV-madgraphMLM-pythia8:
     stat-group: WJets
     cross-section: 1.325
     generated-events: genEventSumw
-    split: -100
+    split: -20
 WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8:
     dbs:
         2016ULpreVFP: das:/WJetsToLNu_HT-2500ToInf_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL16NanoAODAPVv9-106X_mcRun2_asymptotic_preVFP_v11-v2/NANOAODSIM
@@ -576,7 +576,7 @@ ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8:
         2016ULpostVFP: das:/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM
         2017UL: das:/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v2/NANOAODSIM
         2018UL: das:/ttHTobb_M125_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM
-    group: ttX
+    group: ttH
     stat-group: ttH
     cross-section: 0.2953
     generated-events: genEventSumw
@@ -588,7 +588,7 @@ ttHToNonbb_M125_TuneCP5_13TeV-powheg-pythia8:
         2016ULpostVFP: das:/ttHToNonbb_M125_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL16NanoAODv9-106X_mcRun2_asymptotic_v17-v2/NANOAODSIM
         2017UL: das:/ttHToNonbb_M125_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v2/NANOAODSIM
         2018UL: das:/ttHToNonbb_M125_TuneCP5_13TeV-powheg-pythia8/RunIISummer20UL18NanoAODv9-106X_upgrade2018_realistic_v16_L1v1-v2/NANOAODSIM
-    group: ttX
+    group: ttH
     stat-group: ttH
     cross-section: 0.2118
     generated-events: genEventSumw
@@ -652,7 +652,7 @@ QCD_Pt-15To20_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 2.814e+06
     generated-events: genEventSumw
-    split: -100
+    split: -20
 
 QCD_Pt-20To30_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     dbs:    
@@ -664,7 +664,7 @@ QCD_Pt-20To30_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 2.527e+06
     generated-events: genEventSumw
-    split: -100
+    split: -20
 
 QCD_Pt-30To50_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     dbs:
@@ -676,7 +676,7 @@ QCD_Pt-30To50_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 1.367e+06
     generated-events: genEventSumw
-    split: -100
+    split: -20
 
 QCD_Pt-50To80_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     dbs:
@@ -688,7 +688,7 @@ QCD_Pt-50To80_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 3.761e+05
     generated-events: genEventSumw
-    split: -100
+    split: -20
 
 QCD_Pt-80To120_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     dbs:
@@ -700,7 +700,7 @@ QCD_Pt-80To120_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 8.846e+04
     generated-events: genEventSumw
-    split: -100
+    split: -20
 
 QCD_Pt-120To170_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     dbs:
@@ -712,7 +712,7 @@ QCD_Pt-120To170_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 2.124e+04
     generated-events: genEventSumw
-    split: -100
+    split: -20
 
 QCD_Pt-170To300_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     dbs:
@@ -724,7 +724,7 @@ QCD_Pt-170To300_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 7.020e+03
     generated-events: genEventSumw
-    split: -100
+    split: -20
 
 QCD_Pt-300To470_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     dbs:
@@ -736,7 +736,7 @@ QCD_Pt-300To470_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 6.213e+02
     generated-events: genEventSumw
-    split: -100
+    split: -20
 
 QCD_Pt-470To600_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     dbs:
@@ -748,7 +748,7 @@ QCD_Pt-470To600_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 5.902e+01
     generated-events: genEventSumw
-    split: -100
+    split: -20
 
 QCD_Pt-600To800_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     dbs:
@@ -760,7 +760,7 @@ QCD_Pt-600To800_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 1.821e+01
     generated-events: genEventSumw
-    split: -100
+    split: -20
 
 QCD_Pt-800To1000_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     dbs:
@@ -772,7 +772,7 @@ QCD_Pt-800To1000_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 3.280e+00
     generated-events: genEventSumw
-    split: -100
+    split: -20
 
 QCD_Pt-1000_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     dbs:
@@ -784,7 +784,7 @@ QCD_Pt-1000_MuEnrichedPt5_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 1.077e+00
     generated-events: genEventSumw
-    split: -100
+    split: -20
 
 QCD_Pt-15to20_EMEnriched_TuneCP5_13TeV-pythia8:
     dbs:
@@ -796,7 +796,7 @@ QCD_Pt-15to20_EMEnriched_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 1.332e+06
     generated-events: genEventSumw
-    split: -100
+    split: -20
 
 QCD_Pt-20to30_EMEnriched_TuneCP5_13TeV-pythia8:
     dbs:
@@ -808,7 +808,7 @@ QCD_Pt-20to30_EMEnriched_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 4.911e+06
     generated-events: genEventSumw
-    split: -100
+    split: -20
 
 QCD_Pt-30to50_EMEnriched_TuneCP5_13TeV-pythia8:
     dbs:
@@ -820,7 +820,7 @@ QCD_Pt-30to50_EMEnriched_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 6.417e+06
     generated-events: genEventSumw
-    split: -100
+    split: -20
 
 QCD_Pt-50to80_EMEnriched_TuneCP5_13TeV-pythia8:
     dbs:
@@ -832,7 +832,7 @@ QCD_Pt-50to80_EMEnriched_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 1.987e+06
     generated-events: genEventSumw
-    split: -100
+    split: -20
 
 QCD_Pt-80to120_EMEnriched_TuneCP5_13TeV-pythia8:
     dbs:
@@ -844,7 +844,7 @@ QCD_Pt-80to120_EMEnriched_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 3.665e+05
     generated-events: genEventSumw
-    split: -100
+    split: -20
 
 QCD_Pt-120to170_EMEnriched_TuneCP5_13TeV-pythia8:
     dbs:
@@ -856,7 +856,7 @@ QCD_Pt-120to170_EMEnriched_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 6.642e+04
     generated-events: genEventSumw
-    split: -100
+    split: -20
 
 QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8:
     dbs:
@@ -868,7 +868,7 @@ QCD_Pt-170to300_EMEnriched_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 1.655e+04
     generated-events: genEventSumw
-    split: -100
+    split: -20
 
 QCD_Pt-300toInf_EMEnriched_TuneCP5_13TeV-pythia8:
     dbs:
@@ -880,4 +880,4 @@ QCD_Pt-300toInf_EMEnriched_TuneCP5_13TeV-pythia8:
     stat-group: QCD
     cross-section: 1.099e+03
     generated-events: genEventSumw
-    split: -100
+    split: -20
