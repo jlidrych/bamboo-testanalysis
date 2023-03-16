@@ -79,6 +79,14 @@ plotIt:
             line-color: 1
             line-style: 1
             order: 5
+        QCD:
+            legend: 'QCD Multijets'
+            mpl_legend: 'QCD Multijets'
+            fill-color: "#91bfdb"
+            line-width: 1
+            line-color: 1
+            line-style: 1
+            order: 5
 
     systematics: # this list is only used for control plots
         - muon_ID

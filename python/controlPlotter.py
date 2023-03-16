@@ -52,14 +52,19 @@ class controlPlotter(recoBasePlotter):
         ###### Plots for ==1 lepton, >=0 jets ######
         oneMu0JetSel = oneMuTriggerSel.refine("muon_0jets",cut=True)
         oneEle0JetSel = oneEleTriggerSel.refine("ele_0jets",cut=True)
+        yields.add(oneMu0JetSel, "1mu0j")
+        yields.add(oneMu0JetSel, "1ele0j")
         ###### Plots for ==1 lepton, >=1 jets ######
         oneJetSel = op.rng_len(s.cleanedJets) >= 1
         oneMu1JetSel = oneMuTriggerSel.refine("muon_1jets", cut=oneJetSel)
         oneEle1JetSel = oneEleTriggerSel.refine("ele_1jets", cut=oneJetSel)
-
+        yields.add(oneMu1JetSel, "1mu1j")
+        yields.add(oneMu1JetSel, "1ele1j")
         oneFatJetSel = op.rng_len(s.cleanedFatJets) >=1
         oneMu1FatJetSel = oneMuTriggerSel.refine("muon_1fatjets",cut=oneFatJetSel)
         oneEle1FatJetSel = oneEleTriggerSel.refine("ele_1fatjets",cut=oneFatJetSel)
+        yields.add(oneMu1FatJetSel, "1mu1fj")
+        yields.add(oneMu1FatJetSel, "1ele1fj")
         
         for sel,lep,name in [(oneMu0JetSel, s.muon, "1mu_0j"), (oneEle0JetSel, s.electron, "1ele_0j")]:
              plots += cp.makeLeptonPlots(sel, lep, name)
@@ -74,7 +79,8 @@ class controlPlotter(recoBasePlotter):
         twoJetSel = op.rng_len(s.cleanedJets) >= 2
         oneMu2JetSel = oneMuTriggerSel.refine("muon_2jets", cut=twoJetSel)
         oneEle2JetSel = oneEleTriggerSel.refine("ele_2jets", cut=twoJetSel)
-
+        yields.add(oneMu2JetSel, "1mu2j")
+        yields.add(oneMu2JetSel, "1ele2j")
         for sel,lep,name in [(oneMu2JetSel, s.muon, "1mu_2j"), (oneEle2JetSel, s.electron, "1ele_2j")]:
             plots += cp.makeDijetPlots(sel, s.cleanedJets, name)
         ##### Plots for ==1 lepton, >=2 jets, >= 1 b jets ######
