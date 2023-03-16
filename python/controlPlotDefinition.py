@@ -152,6 +152,19 @@ def makeDijetPlots(sel,jet, uname, binScaling=1):
 
     return plots
 
+def makeDileptonPlots(sel,leptons, uname, binScaling=1):
+    plots = []
+    dilepton = op.combine(leptons, N=2, pred=lambda l1, l2: l1.charge != l2.charge)
+
+    plots.append(Plot.make1D(f"{uname}_dilepton_mass", op.invariant_mass(leptons[0].p4,leptons[1].p4), sel,
+                             EqBin(85 // binScaling, 30., 200.), title="Dilepton mass_{ll} (GeV)",
+                             plotopts=utils.getOpts(uname)))
+    plots.append(Plot.make1D(f"{uname}_dilepton_pt",dilepton[0][0].pt , sel,
+                             EqBin(60 // binScaling, 0., 300.), title="Dilepton p_{T} (GeV)",
+                             plotopts=utils.getOpts(uname)))
+
+    return plots
+
 def makeHEMPlots(sel, lepton, jets, uname):
     plots = []
 

@@ -30,7 +30,7 @@ class controlPlotter(recoBasePlotter):
         plots = []
 
         ##### Muon and electron selection, exclusive!
-        oneMuTriggerSel, oneEleTriggerSel = recoBasePlotter.defineBaseSelections(s, t, noSel, sample, sampleCfg)
+        oneMuTriggerSel, oneEleTriggerSel,twoMuTriggerSel, twoEleTriggerSel  = recoBasePlotter.defineBaseSelections(s, t, noSel, sample, sampleCfg)
         ###### Plots for ==1 lepton (trigger level) ######
 
         # plots += utils.makeMergedPlots([("1mu", oneMuTriggerSel), ("1ele", oneEleTriggerSel)], "1lep", "nJets", EqBin(10, 0, 10), title="Number of jets", var=op.rng_len(s.cleanedJets))
@@ -52,8 +52,13 @@ class controlPlotter(recoBasePlotter):
         ###### Plots for ==1 lepton, >=0 jets ######
         oneMu0JetSel = oneMuTriggerSel.refine("muon_0jets",cut=True)
         oneEle0JetSel = oneEleTriggerSel.refine("ele_0jets",cut=True)
+        twoMu0JetSel = twoMuTriggerSel.refine("2muon_0jets",cut=True)
+        twoEle0JetSel = twoEleTriggerSel.refine("2ele_0jets",cut=True)
+
         yields.add(oneMu0JetSel, "1mu0j")
-        yields.add(oneMu0JetSel, "1ele0j")
+        yields.add(oneEle0JetSel, "1ele0j")
+        yields.add(twoMu0JetSel, "2mu0j")
+        yields.add(twoEle0JetSel, "2ele0j")
         ###### Plots for ==1 lepton, >=1 jets ######
         oneJetSel = op.rng_len(s.cleanedJets) >= 1
         oneMu1JetSel = oneMuTriggerSel.refine("muon_1jets", cut=oneJetSel)
@@ -74,6 +79,26 @@ class controlPlotter(recoBasePlotter):
 
         for sel,lep,name in [(oneMu1FatJetSel, s.muon, "1mu_1fj"), (oneEle1FatJetSel, s.electron, "1ele_1fj")]:
              plots += cp.makeFatJetPlots(sel, s.cleanedFatJets, name,1)
+
+        for sel,lep,name in [(twoMu0JetSel, s.muons, "2mu_0j"), (twoEle0JetSel, s.electrons, "2ele_0j")]:
+            plots += cp.makeDileptonPlots(sel, lep, name)
+            plots += cp.makeJetPlots(sel, s.cleanedJets, name)
+
+        plots += utils.makeMergedPlots(
+            [(f"2mu_0j", twoMu0JetSel), (f"2ele_0j", twoMu0JetSel)],
+            f"2lep_0j", "MET_pt", EqBin(60, 0, 600), title="MET p_{T} (GeV)", var=s.corrMET.pt)
+
+        plots += utils.makeMergedPlots(
+            [(f"2mu_0j", twoMu0JetSel), (f"2ele_0j", twoMu0JetSel)],
+            f"2lep_0j", "MET_phi", EqBin(60, -3.1416, 3.1416), title="MET #phi", var=s.corrMET.phi)
+
+        plots += utils.makeMergedPlots(
+            [(f"2mu_0j", twoMu0JetSel), (f"2ele_0j", twoMu0JetSel)],
+            f"2lep_0j", "nJets", EqBin(9, 0.5, 9.5), title="Number of jets", var=op.rng_len(s.cleanedJets))
+
+        plots += utils.makeMergedPlots(
+            [(f"2mu_0j", twoMu0JetSel), (f"2ele_0j", twoMu0JetSel)],
+            f"2lep_0j", "nBDeepFlavM", EqBin(7, -0.5, 6.5), title="Number of medium b-tagged jets", var=op.rng_len(s.bJetsM))
 
         ###### Plots for ==1 lepton, >=2 jets ######
         twoJetSel = op.rng_len(s.cleanedJets) >= 2
@@ -100,7 +125,7 @@ class controlPlotter(recoBasePlotter):
 
         plots += utils.makeMergedPlots(
             [(f"1mu_2j_1b", oneMu2Jet1BSel), (f"1ele_2j_1b", oneEle2Jet1BSel)],
-            f"1lep_2j_1b", "nBDeepFlavM", EqBin(5, 1.5, 6.5), title="Number of medium b-tagged jets", var=op.rng_len(s.bJetsM))
+            f"1lep_2j_1b", "nBDeepFlavM", EqBin(6, 0.5, 6.5), title="Number of medium b-tagged jets", var=op.rng_len(s.bJetsM))
 
         for sel,lep,name in [(oneMu2Jet1BSel, s.muon, f"1mu_2j_1b"), (oneEle2Jet1BSel, s.electron, f"1ele_2j_1b")]:
             plots += cp.makeLeptonPlots(sel, lep, name, binScaling=2)

@@ -521,12 +521,16 @@ def getL1PrefiringSystematic(tree):
 
 # Return exclusive muon selection (without and with applied trigger), with trigger, ID, and iso scale factors (for MC)
 def buildMuonSelections(tree, noSel, muons, vetoMuons, electrons, vetoElectrons, sample, era, isMC):
-    scaleFactors = []
+    scaleFactors1mu = []
+    scaleFactors2mu = []
+
     if isMC:
         muonRecoSF = getScaleFactor(era, noSel, systName="muon_reco")
         muonIDSF = getScaleFactor(era, noSel, systName="muon_ID")
         muonIsoSF = getScaleFactor(era, noSel, systName="muon_iso")
-        scaleFactors = [ muonRecoSF(muons[0]), muonIDSF(muons[0]), muonIsoSF(muons[0]) ]
+        scaleFactors1mu = [ muonRecoSF(muons[0]), muonIDSF(muons[0]), muonIsoSF(muons[0]) ]
+        scaleFactors2mu = [ muonRecoSF(muons[0])*muonRecoSF(muons[1]), muonIDSF(muons[0])*muonIDSF(muons[1]), muonIsoSF(muons[0])*muonIsoSF(muons[1]) ]
+
 
     oneMuSel = noSel.refine("muon",
                     cut=op.AND(
@@ -534,8 +538,19 @@ def buildMuonSelections(tree, noSel, muons, vetoMuons, electrons, vetoElectrons,
                         op.rng_len(vetoMuons) == 1,
                         op.rng_len(vetoElectrons) == 0
                     ),
-                    weight=scaleFactors
+                    weight=scaleFactors1mu
                 )
+
+    twoMuSel = noSel.refine("2muon",
+                        cut=op.AND(
+                        op.rng_len(muons) == 2,
+                        op.rng_len(vetoMuons) == 2,
+                        op.rng_len(vetoElectrons) == 0,
+                        muons[0].charge != muons[1].charge
+                    ),
+                    weight=scaleFactors2mu
+                )
+
     triggerSFWeights = []
     if isMC:
         muonTriggerSF = getScaleFactor(era, oneMuSel, systName="muon_trigger")
@@ -544,16 +559,21 @@ def buildMuonSelections(tree, noSel, muons, vetoMuons, electrons, vetoElectrons,
     oneMuTriggerSel = oneMuSel.refine("muonTrigger",
                                     cut=muonTriggerDef(tree.HLT, sample, era, isMC),
                                     weight=triggerSFWeights)
+    twoMuTriggerSel = twoMuSel.refine("2muonTrigger",
+                                    cut=muonTriggerDef(tree.HLT, sample, era, isMC),
+                                    weight=triggerSFWeights)
 
-    return oneMuSel, oneMuTriggerSel
+    return twoMuTriggerSel, oneMuTriggerSel
 
 # Return exclusive electron selection (without and with applied trigger), with trigger, ID/iso, and reco scale factors (for MC)
 def buildElectronSelections(tree, noSel, muons, vetoMuons, electrons, vetoElectrons, sample, era, isMC):
-    scaleFactors = []
+    scaleFactors1ele = []
+    scaleFactors2ele = []
     if isMC:
         eleRecoSF = getScaleFactor(era, noSel, systName="electron_reco")
         eleIDSF = getScaleFactor(era, noSel, systName="electron_ID")
-        scaleFactors = [ eleRecoSF(electrons[0]), eleIDSF(electrons[0]) ]
+        scaleFactors1ele = [ eleRecoSF(electrons[0]), eleIDSF(electrons[0]) ]
+        scaleFactors2ele = [ eleRecoSF(electrons[0])*eleRecoSF(electrons[1]), eleIDSF(electrons[0])*eleIDSF(electrons[1]) ]
 
     oneEleSel = noSel.refine("electron",
                     cut=op.AND(
@@ -561,8 +581,18 @@ def buildElectronSelections(tree, noSel, muons, vetoMuons, electrons, vetoElectr
                         op.rng_len(vetoElectrons) == 1,
                         op.rng_len(electrons) == 1
                     ),
-                    weight=scaleFactors
+                    weight=scaleFactors1ele
                 )
+    twoEleSel = noSel.refine("2electron",
+                    cut=op.AND(
+                        op.rng_len(vetoMuons) == 0,
+                        op.rng_len(vetoElectrons) == 2,
+                        op.rng_len(electrons) == 2,
+                        electrons[0].charge != electrons[1].charge
+                    ),
+                    weight=scaleFactors2ele
+                )
+
     triggerSFWeights = []
     if isMC:
         eleTriggerSF = getScaleFactor(era, oneEleSel, systName="electron_trigger")
@@ -574,8 +604,11 @@ def buildElectronSelections(tree, noSel, muons, vetoMuons, electrons, vetoElectr
     oneEleTriggerSel = oneEleSel.refine("electronTrigger",
                                     cut=eleTriggerDef(tree.TrigObj, tree.HLT, electrons[0], sample, era, isMC),
                                     weight=triggerSFWeights)
+    twoEleTriggerSel = twoEleSel.refine("2electronTrigger",
+                                    cut=eleTriggerDef(tree.TrigObj, tree.HLT, electrons[0], sample, era, isMC),
+                                    weight=triggerSFWeights)
 
-    return oneEleSel, oneEleTriggerSel
+    return twoEleTriggerSel, oneEleTriggerSel
 
 def get_bTagSF_fixWP(wp, flav, era, sel, use_nominal_jet_pt=False, heavy_method="comb",
                     syst_prefix="btagSF_deepjet_fixWP_", decorr_wps=False, decorr_eras=True, full_scheme=False, full_scheme_mapping=None, defineOnFirstUse=True,

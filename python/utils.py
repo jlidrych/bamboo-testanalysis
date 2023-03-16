@@ -31,13 +31,25 @@ def getOpts(uname, **kwargs):
     opts = {}
     if "ele" in uname:
         label = "1 electron"
+    elif "2ele" in uname:
+        label = "2 electrons"
     elif "mu" in uname:
         label = "1 muon"
+    elif "2mu" in uname:
+        label = "2 muons"
     elif "lep" in uname:
         label = "1 lepton (e/#mu)"
     if "gen" in uname:
         label = "Gen: " + label
-    if "4j" in uname:
+    if "0j" in uname:
+        label += ", #geq 0 jets"
+    elif "1j" in uname:
+        label += ", #geq 1 jets"
+    elif "2j" in uname:
+        label += ", #geq 2 jets"
+    elif "3j" in uname:
+        label += ", #geq 3 jets"
+    elif "4j" in uname:
         label += ", #geq 4 jets"
     elif "5j" in uname:
         label += ", #geq 5 jets"
@@ -45,7 +57,15 @@ def getOpts(uname, **kwargs):
         label += ", #geq 6 jets"
     elif "7j" in uname:
         label += ", #geq 7 jets"
-    if "2b" in uname:
+    if "0fj" in uname:
+        label += ", #geq 0 fatjets"
+    elif "1fj" in uname:
+        label += ", #geq 1 fatjets"
+    elif "2fj" in uname:
+        label += ", #geq 2 fatjets"
+    if "1b" in uname:
+        label += ", #geq 1 b"
+    elif "2b" in uname:
         label += ", #geq 2 b"
     elif "3b" in uname:
         label += ", #geq 3 b"
