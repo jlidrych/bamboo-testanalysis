@@ -56,17 +56,17 @@ plotIt:
             line-style: 1
             order: 2
         ttX:
-            legend: 't#bar{t}X'
-            mpl_legend: '$\mathrm{t}\overline{\mathrm{t}}+X$'
-            fill-color: "#e0f3f8"
+            legend: 't#bar{t}(W/Z)'
+            mpl_legend: '$\mathrm{t}\overline{\mathrm{t}}\mathrm{W/Z}$'
+            fill-color: "#ffffbf"
             line-width: 1
             line-color: 1
             line-style: 1
             order: 3
-        ttV:
-            legend: 't#bar{t}V'
-            mpl_legend: '$\mathrm{t}\overline{\mathrm{t}}\mathrm{V}$'
-            fill-color: "#91bfdb"
+        ttH:
+            legend: 't#bar{t}H'
+            mpl_legend: '$\mathrm{t}\overline{\mathrm{t}}\mathrm{H}$'
+            fill-color: "#e0f3f8"
             line-width: 1
             line-color: 1
             line-style: 1
@@ -74,7 +74,7 @@ plotIt:
         ST:
             legend: 'Single t'
             mpl_legend: 'Single $\mathrm{t}$'
-            fill-color: "#4575b4"
+            fill-color: "#91bfdb"
             line-width: 1
             line-color: 1
             line-style: 1
@@ -82,7 +82,7 @@ plotIt:
         QCD:
             legend: 'QCD Multijets'
             mpl_legend: 'QCD Multijets'
-            fill-color: "#91bfdb"
+            fill-color: "#4575b4"
             line-width: 1
             line-color: 1
             line-style: 1

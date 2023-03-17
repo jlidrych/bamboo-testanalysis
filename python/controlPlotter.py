@@ -50,8 +50,8 @@ class controlPlotter(recoBasePlotter):
         yields = CutFlowReport(s.yieldsPrefix)
         plots.append(yields)
         ###### Plots for ==1 lepton, >=0 jets ######
-        oneMu0JetSel = oneMuTriggerSel.refine("muon_0jets",cut=True)
-        oneEle0JetSel = oneEleTriggerSel.refine("ele_0jets",cut=True)
+        oneMu0JetSel = oneMuTriggerSel.refine("1muon_0jets",cut=True)
+        oneEle0JetSel = oneEleTriggerSel.refine("1ele_0jets",cut=True)
         twoMu0JetSel = twoMuTriggerSel.refine("2muon_0jets",cut=True)
         twoEle0JetSel = twoEleTriggerSel.refine("2ele_0jets",cut=True)
 
@@ -61,13 +61,13 @@ class controlPlotter(recoBasePlotter):
         yields.add(twoEle0JetSel, "2ele0j")
         ###### Plots for ==1 lepton, >=1 jets ######
         oneJetSel = op.rng_len(s.cleanedJets) >= 1
-        oneMu1JetSel = oneMuTriggerSel.refine("muon_1jets", cut=oneJetSel)
-        oneEle1JetSel = oneEleTriggerSel.refine("ele_1jets", cut=oneJetSel)
+        oneMu1JetSel = oneMuTriggerSel.refine("1muon_1jets", cut=oneJetSel)
+        oneEle1JetSel = oneEleTriggerSel.refine("1ele_1jets", cut=oneJetSel)
         yields.add(oneMu1JetSel, "1mu1j")
         yields.add(oneMu1JetSel, "1ele1j")
         oneFatJetSel = op.rng_len(s.cleanedFatJets) >=1
-        oneMu1FatJetSel = oneMuTriggerSel.refine("muon_1fatjets",cut=oneFatJetSel)
-        oneEle1FatJetSel = oneEleTriggerSel.refine("ele_1fatjets",cut=oneFatJetSel)
+        oneMu1FatJetSel = oneMuTriggerSel.refine("1muon_1fatjets",cut=oneFatJetSel)
+        oneEle1FatJetSel = oneEleTriggerSel.refine("1ele_1fatjets",cut=oneFatJetSel)
         yields.add(oneMu1FatJetSel, "1mu1fj")
         yields.add(oneMu1FatJetSel, "1ele1fj")
         
@@ -85,33 +85,33 @@ class controlPlotter(recoBasePlotter):
             plots += cp.makeJetPlots(sel, s.cleanedJets, name)
 
         plots += utils.makeMergedPlots(
-            [(f"2mu_0j", twoMu0JetSel), (f"2ele_0j", twoMu0JetSel)],
+            [(f"2mu_0j", twoMu0JetSel), (f"2ele_0j", twoEle0JetSel)],
             f"2lep_0j", "MET_pt", EqBin(60, 0, 600), title="MET p_{T} (GeV)", var=s.corrMET.pt)
 
         plots += utils.makeMergedPlots(
-            [(f"2mu_0j", twoMu0JetSel), (f"2ele_0j", twoMu0JetSel)],
+            [(f"2mu_0j", twoMu0JetSel), (f"2ele_0j", twoEle0JetSel)],
             f"2lep_0j", "MET_phi", EqBin(60, -3.1416, 3.1416), title="MET #phi", var=s.corrMET.phi)
 
         plots += utils.makeMergedPlots(
-            [(f"2mu_0j", twoMu0JetSel), (f"2ele_0j", twoMu0JetSel)],
+            [(f"2mu_0j", twoMu0JetSel), (f"2ele_0j", twoEle0JetSel)],
             f"2lep_0j", "nJets", EqBin(9, 0.5, 9.5), title="Number of jets", var=op.rng_len(s.cleanedJets))
 
         plots += utils.makeMergedPlots(
-            [(f"2mu_0j", twoMu0JetSel), (f"2ele_0j", twoMu0JetSel)],
+            [(f"2mu_0j", twoMu0JetSel), (f"2ele_0j", twoEle0JetSel)],
             f"2lep_0j", "nBDeepFlavM", EqBin(7, -0.5, 6.5), title="Number of medium b-tagged jets", var=op.rng_len(s.bJetsM))
 
         ###### Plots for ==1 lepton, >=2 jets ######
         twoJetSel = op.rng_len(s.cleanedJets) >= 2
-        oneMu2JetSel = oneMuTriggerSel.refine("muon_2jets", cut=twoJetSel)
-        oneEle2JetSel = oneEleTriggerSel.refine("ele_2jets", cut=twoJetSel)
+        oneMu2JetSel = oneMuTriggerSel.refine("1muon_2jets", cut=twoJetSel)
+        oneEle2JetSel = oneEleTriggerSel.refine("1ele_2jets", cut=twoJetSel)
         yields.add(oneMu2JetSel, "1mu2j")
         yields.add(oneMu2JetSel, "1ele2j")
         for sel,lep,name in [(oneMu2JetSel, s.muon, "1mu_2j"), (oneEle2JetSel, s.electron, "1ele_2j")]:
             plots += cp.makeDijetPlots(sel, s.cleanedJets, name)
         ##### Plots for ==1 lepton, >=2 jets, >= 1 b jets ######
 
-        oneMu2Jet1BSel = oneMu2JetSel.refine("muon_2jets_1b", cut=op.rng_len(s.bJetsM) >= 1, weight=s.bTagWeight)
-        oneEle2Jet1BSel = oneEle2JetSel.refine("ele_2jets_1b", cut=op.rng_len(s.bJetsM) >= 1, weight=s.bTagWeight)
+        oneMu2Jet1BSel = oneMu2JetSel.refine("1muon_2jets_1b", cut=op.rng_len(s.bJetsM) >= 1, weight=s.bTagWeight)
+        oneEle2Jet1BSel = oneEle2JetSel.refine("1ele_2jets_1b", cut=op.rng_len(s.bJetsM) >= 1, weight=s.bTagWeight)
         yields.add(oneMu2Jet1BSel, "1mu2j1b")
         yields.add(oneEle2Jet1BSel, "1ele2j1b")
 
@@ -142,5 +142,5 @@ class controlPlotter(recoBasePlotter):
              removeBatch=True,
              createEnvelope=True,
              moveSystHists=True,
-             removeSignalOverlap=True)
+             removeSignalOverlap=False)
         self.runPlotIt(taskList, config, workdir, resultsdir)

@@ -29,16 +29,18 @@ yaml.add_representer(str, yaml_latex_representer)
 def getOpts(uname, **kwargs):
     label = None
     opts = {}
-    if "ele" in uname:
+    if "1ele" in uname:
         label = "1 electron"
     elif "2ele" in uname:
         label = "2 electrons"
-    elif "mu" in uname:
+    elif "1mu" in uname:
         label = "1 muon"
     elif "2mu" in uname:
         label = "2 muons"
-    elif "lep" in uname:
+    elif "1lep" in uname:
         label = "1 lepton (e/#mu)"
+    elif "2lep" in uname:
+        label = "2 leptons (ee/#mu#mu)"
     if "gen" in uname:
         label = "Gen: " + label
     if "0j" in uname:
