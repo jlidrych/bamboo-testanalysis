@@ -35,7 +35,7 @@ class recoBasePlotter(basePlotter):
         # configure Jet/Met corrections
 
         isNotWorker = (self.args.distributed != "worker")
-        defs.configureJetMETCorrections(tree, era, isNotWorker, self.isMC(sample), be, sample, splitJER=not self.args.no_split_jer, jesScheme=self.args.jes_scheme)
+        defs.configureJetMETCorrections(tree, era, isNotWorker, self.isMC(sample), be, sample, splitJER=not self.args.no_split_jer, jesScheme=self.args.jes_scheme, configMET=True, configFatJet=False )
 
         return tree,noSel,be,lumiArgs
 

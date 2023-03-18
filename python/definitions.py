@@ -24,8 +24,8 @@ def getYearFromEra(era):
 #### Configure NanoAOD decoration
 
 def getNanoAODDescription(era, isMC, doRocCor=True):
-    groups = ["PV_", "Flag_", "HLT_", "MET_"]
-    collections = ["nFatJet","nJet", "nMuon", "nElectron","nTau","nTrigObj"]
+    groups = ["PV_", "Flag_", "HLT_", "MET_","RawMET_"]
+    collections = ["nFatJet","nJet", "nMuon", "nElectron","nTau","nTrigObj","nSubJet"]
     varReaders = []
 
     if doRocCor:
@@ -33,7 +33,7 @@ def getNanoAODDescription(era, isMC, doRocCor=True):
 
     if isMC:
         mcGroups = ["Pileup_", "GenMET_", "Generator_"]
-        mcCollections = ["nGenDressedLepton", "nGenJet", "nGenPart","nGenJetAK8"]
+        mcCollections = ["nGenDressedLepton", "nGenJet", "nGenPart","nGenJetAK8","nCorrT1METJet","nSubGenJetAK8"]
         # NOTE: not adding the Jet module to data because the JECs in nanoAODv9 are up-to-date... but this could change!
         # NOTE: not including MET since we're not using it... but this could change
         # NOTE: no corrections to softdrop FatJet=("pt", "mass", "msoftdrop")
@@ -110,7 +110,7 @@ def configureJetMETCorrections(tree, era, isNotWorker, isMC, backend, sampleName
         exclJetSysts += list(chain.from_iterable([ (f"{j}up", f"{j}down") for j in exclJetSysts ]))
 
         configureJets(tree._Jet, "AK4PFchs", jec=JECTagDatabase[era]["MC"], smear=JERTagDatabase[era],
-                      jecLevels=[], # NOTE: not re-applying the JEC, only computing uncertainties!
+                    #  jecLevels=[], # NOTE: not re-applying the JEC, only computing uncertainties!
                       jesUncertaintySources=sources, regroupTag="V2", enableSystematics=lambda v: v not in exclJetSysts,
                       splitJER=splitJER, addHEM2018Issue=(era == "2018UL"), mayWriteCache=isNotWorker,
                       isMC=isMC, backend=backend, uName=sampleName)
@@ -121,8 +121,8 @@ def configureJetMETCorrections(tree, era, isNotWorker, isMC, backend, sampleName
                               isMC=isMC, backend=backend, uName=sampleName)
 
         if configFatJet:
-            configureJets(tree._FatJet, "AK8PFPuppi", jec=JECTagDatabase[era], smear=JERTagDatabase[era],
-                            jecLevels=[], # NOTE: not re-applying the JEC, only computing uncertainties!
+            configureJets(tree._FatJet, "AK8PFPuppi", jec=JECTagDatabase[era]["MC"], smear=JERTagDatabase[era],
+                       #     jecLevels=[], # NOTE: not re-applying the JEC, only computing uncertainties!
                             genMatchDR=0.4,
                             jesUncertaintySources=sources, regroupTag="V2", enableSystematics=lambda v: v not in exclJetSysts,
                             splitJER=splitJER, addHEM2018Issue=(era == "2018UL"), mayWriteCache=isNotWorker,
@@ -144,7 +144,7 @@ def configureJetMETCorrections(tree, era, isNotWorker, isMC, backend, sampleName
                                 isMC=isMC, backend=backend, uName=sampleName)
         
         if configFatJet:
-            configureJets(tree._FatJet, "AK8PFPuppi", jec=JECTagDatabase[era], smear=JERTagDatabase[era],
+            configureJets(tree._FatJet, "AK8PFPuppi", jec=JECTagDatabase[era][runEra], smear=JERTagDatabase[era],
                             jecLevels=[], # NOTE: not re-applying the JEC, only computing uncertainties!
                             mayWriteCache=isNotWorker,
                             isMC=isMC, backend=backend, uName=sampleName)
