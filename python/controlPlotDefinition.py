@@ -16,6 +16,9 @@ def makeLeptonPlots(sel, lepton, uname, binScaling=1):
     plots.append(Plot.make1D(f"{uname}_lep_pt", lepton.pt, sel,
             EqBin(60 // binScaling, 30., 530.), title="%s p_{T} (GeV)" % flav,
             plotopts=utils.getOpts(uname)))
+    plots.append(Plot.make1D(f"{uname}_lep_cone_pt", lepton.conept, sel,
+            EqBin(60 // binScaling, 30., 530.), title="%s cone p_{T} (GeV)" % flav,
+            plotopts=utils.getOpts(uname)))
     plots.append(Plot.make1D(f"{uname}_lep_eta", lepton.eta, sel,
             EqBin(50 // binScaling, -2.4, 2.4), title="%s eta" % flav,
             plotopts=utils.getOpts(uname, **{"log-y": False})))

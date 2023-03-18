@@ -264,6 +264,15 @@ def vetoEleDef(ele):
         ele.cutBased >= 1,
     )
 
+def muonConePt(muon):
+    return op.map(muon, lambda mu: op.multiSwitch((op.AND(op.abs(mu.pdgId)!=11, op.abs(mu.pdgId)!=13), mu.pt),
+                                                  (op.AND(op.abs(mu.pdgId)==13, mu.mediumId, mu.mvaTTH > 0.50), mu.pt),
+                                                   0.9*mu.pt*(1.+mu.jetRelIso)))
+def eleConePt(electron):
+    return op.map(electron, lambda el: op.multiSwitch((op.AND(op.abs(el.pdgId)!=11, op.abs(el.pdgId)!=13), el.pt),
+                                                      (op.AND(op.abs(el.pdgId)==11 , el.mvaTTH > 0.30), el.pt),
+                                                      0.9*el.pt*(1.+el.jetRelIso)))
+
 def jetDef(jet):
     return op.AND(
         jet.pt > 30., op.abs(jet.eta) < 2.4,

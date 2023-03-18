@@ -3,6 +3,7 @@ logger = logging.getLogger("reco base plotter")
 from itertools import chain
 
 from bamboo import treefunctions as op
+from bamboo import treedecorators as td
 from bamboo.root import gbl as ROOT
 from bamboo.analysisutils import forceDefine
 
@@ -74,6 +75,10 @@ class recoBasePlotter(basePlotter):
 
         self.origMET = tree.MET
         self.corrMET = defs.corrMET(self.origMET, tree.PV, sample, era, self.isMC(sample))
+
+        ###### Add lepton cone pt
+        tree.Muon.valueType.conept = td.itemProxy(defs.muonConePt(tree.Muon))
+        tree.Electron.valueType.conept = td.itemProxy(defs.eleConePt(tree.Electron))
 
         ##### Lepton definition and scale factors
         self.muons = op.select(tree.Muon, defs.muonDef(era))
