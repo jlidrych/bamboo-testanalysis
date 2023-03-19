@@ -168,6 +168,25 @@ def flagDef(flags, era, isMC):
         cuts.append(flags.ecalBadCalibFilter)
     return cuts
 
+def triggerDef(HLT,era):
+    triggersPerPrimaryDataset = {}
+    if era == '2016ULpreVFP' or era == '2016ULpostVFP':
+        triggersPerPrimaryDataset = {
+            "SingleMuon":[HLT.IsoMu24,HLT.IsoTkMu24],
+            "SingleElectron":[HLT.Ele27_WPTight_Gsf]
+        }
+    if era == '2017UL':
+        triggersPerPrimaryDataset = {
+            "SingleMuon":[HLT.IsoMu27],
+            "SingleElectron":[HLT.Ele28_eta2p1_WPTight_Gsf_HT150,HLT.Ele32_WPTight_Gsf_L1DoubleEG]
+        }
+    if era == '2018UL':
+        triggersPerPrimaryDataset = {
+            "SingleMuon":[HLT.IsoMu24],
+            "EGamma":[HLT.Ele32_WPTight_Gsf, HLT.Ele28_eta2p1_WPTight_Gsf_HT150]
+        }
+    return triggersPerPrimaryDataset
+
 def addMuonRocCor(be, origMuons, era, sample, isMC):
     if era == "2016ULpreVFP":
         era = "2016aUL"

@@ -6,6 +6,7 @@ from bamboo import treefunctions as op
 from bamboo import treedecorators as td
 from bamboo.root import gbl as ROOT
 from bamboo.analysisutils import forceDefine
+from bamboo.analysisutils import makeMultiPrimaryDatasetTriggerSelection
 
 import definitions as defs
 import utils
@@ -41,9 +42,14 @@ class recoBasePlotter(basePlotter):
 
     def defineBaseSelections(self, tree, noSel, sample, sampleCfg):
         era = sampleCfg["era"]
+        triggersPerPrimaryDataset = defs.triggerDef(tree.HLT, era)
 
         if self.isMC(sample):
             noSel = noSel.refine("puWeight", weight=defs.makePUWeight(tree, era, noSel))
+            noSel = noSel.refine("triggers", cut=(op.OR(*chain.from_iterable(triggersPerPrimaryDataset.values()))))
+        else:
+            noSel = noSel.refine("triggers", cut=(makeMultiPrimaryDatasetTriggerSelection(sample, triggersPerPrimaryDataset)))
+
         noSel = noSel.refine("flags", cut=defs.flagDef(tree.Flag, era, self.isMC(sample)))
 
         # calculate (corrected) muon 4-momenta before accessing them
@@ -64,8 +70,8 @@ class recoBasePlotter(basePlotter):
             if self.bTagWeight:
                 forceDefine(self.bTagWeight, oneMuTriggerSel)
                 forceDefine(self.bTagWeight, oneEleTriggerSel)
-                forceDefine(tree._Jet.calcProd, twoMuTriggerSel)
-                forceDefine(tree._Jet.calcProd, twoEleTriggerSel)
+                forceDefine(self.bTagWeight, twoMuTriggerSel)
+                forceDefine(self.bTagWeight, twoEleTriggerSel)
 
         return oneMuTriggerSel,oneEleTriggerSel,twoMuTriggerSel,twoEleTriggerSel
 
