@@ -136,6 +136,18 @@ def makeMETPlots(sel, lepton, met, uname, binScaling=1):
 
     return plots
 
+def makeMissingETPlots(sel, met, uname, binScaling=1):
+    plots = []
+
+    plots.append(Plot.make1D(f"{uname}_MET_pt", met.pt, sel,
+            EqBin(60 // binScaling, 0., 600.), title="MET p_{T} (GeV)",
+            plotopts=utils.getOpts(uname)))
+    plots.append(Plot.make1D(f"{uname}_MET_phi", met.phi, sel,
+            EqBin(60 // binScaling, -3.1416, 3.1416), title="MET #phi",
+            plotopts=utils.getOpts(uname, **{"log-y": False})))
+
+    return plots
+
 def makeDijetPlots(sel,jet, uname, binScaling=1):
     plots = []
 
@@ -165,6 +177,21 @@ def makeDileptonPlots(sel,leptons, uname, binScaling=1):
     plots.append(Plot.make1D(f"{uname}_dilepton_pt",dilepton[0][0].pt , sel,
                              EqBin(60 // binScaling, 0., 300.), title="Dilepton p_{T} (GeV)",
                              plotopts=utils.getOpts(uname)))
+
+    return plots
+
+def makeEleMuPlots(sel,electrons,muons, uname, binScaling=1):
+    plots = []
+    dilepton = op.combine((electrons,muons), N=2, pred=lambda l1, l2: l1.charge != l2.charge)
+
+    plots.append(Plot.make1D(f"{uname}_dilepton_mass", op.invariant_mass(electrons[0].p4,muons[1].p4), sel,
+                             EqBin(85 // binScaling, 30., 200.), title="Dilepton mass_{ll} (GeV)",
+                             plotopts=utils.getOpts(uname)))
+    plots.append(Plot.make1D(f"{uname}_dilepton_pt",dilepton[0][0].pt , sel,
+                             EqBin(60 // binScaling, 0., 300.), title="Dilepton p_{T} (GeV)",
+                             plotopts=utils.getOpts(uname)))
+
+
 
     return plots
 

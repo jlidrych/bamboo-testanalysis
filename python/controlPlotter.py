@@ -30,7 +30,7 @@ class controlPlotter(recoBasePlotter):
         plots = []
 
         ##### Muon and electron selection, exclusive!
-        oneMuTriggerSel, oneEleTriggerSel,twoMuTriggerSel, twoEleTriggerSel  = recoBasePlotter.defineBaseSelections(s, t, noSel, sample, sampleCfg)
+        oneMuTriggerSel, oneEleTriggerSel,twoMuTriggerSel, twoEleTriggerSel, oneEleoneMuTriggerSel  = recoBasePlotter.defineBaseSelections(s, t, noSel, sample, sampleCfg)
         ###### Plots for ==1 lepton (trigger level) ######
 
         # plots += utils.makeMergedPlots([("1mu", oneMuTriggerSel), ("1ele", oneEleTriggerSel)], "1lep", "nJets", EqBin(10, 0, 10), title="Number of jets", var=op.rng_len(s.cleanedJets))
@@ -54,11 +54,13 @@ class controlPlotter(recoBasePlotter):
         oneEle0JetSel = oneEleTriggerSel.refine("1ele_0jets",cut=True)
         twoMu0JetSel = twoMuTriggerSel.refine("2muon_0jets",cut=True)
         twoEle0JetSel = twoEleTriggerSel.refine("2ele_0jets",cut=True)
-
+        oneEleoneMu0JetSel = oneEleoneMuTriggerSel.refine("elemuon_0jets",cut=True)
+        
         yields.add(oneMu0JetSel, "1mu0j")
         yields.add(oneEle0JetSel, "1ele0j")
         yields.add(twoMu0JetSel, "2mu0j")
         yields.add(twoEle0JetSel, "2ele0j")
+        yields.add(oneEleoneMu0JetSel, "1ele1mu0j")
         ###### Plots for ==1 lepton, >=1 jets ######
         oneJetSel = op.rng_len(s.cleanedJets) >= 1
         oneMu1JetSel = oneMuTriggerSel.refine("1muon_1jets", cut=oneJetSel)
@@ -83,6 +85,14 @@ class controlPlotter(recoBasePlotter):
         for sel,lep,name in [(twoMu0JetSel, s.muons, "2mu_0j"), (twoEle0JetSel, s.electrons, "2ele_0j")]:
             plots += cp.makeDileptonPlots(sel, lep, name)
             plots += cp.makeJetPlots(sel, s.cleanedJets, name)
+
+        for sel,ele,mu,name in [(oneEleoneMu0JetSel,s.electrons,s.muons,"elemu_0j")]:
+            plots += cp.makeEleMuPlots(sel, ele,mu,name)
+            plots += cp.makeJetPlots(sel, s.cleanedJets, name)
+            plots += cp.makeFatJetPlots(sel, s.cleanedFatJets, name,1)
+            plots += cp.makeBJetPlots(sel, s.cleanedJetsByDeepFlav, name + "_byDeepFlav")
+            plots += cp.makeMissingETPlots(sel, s.corrMET, name)
+
 
         plots += utils.makeMergedPlots(
             [(f"2mu_0j", twoMu0JetSel), (f"2ele_0j", twoEle0JetSel)],

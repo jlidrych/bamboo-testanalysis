@@ -66,6 +66,39 @@ EGamma_Run2018D:
     run_range: *runs_18D
     split: -20
 
+MuonEG_Run2018A:
+    group: data
+    era: 2018UL
+    db: das:/MuonEG/Run2018A-UL2018_MiniAODv2_NanoAODv9-v1/NANOAOD
+    certified_lumi_file: *lumi_cert_18
+    run_range: *runs_18A
+    split: -30
+    for_sync: True
+
+MuonEG_Run2018B:
+    group: data
+    era: 2018UL
+    db: das:/MuonEG/Run2018B-UL2018_MiniAODv2_NanoAODv9-v1/NANOAOD
+    certified_lumi_file: *lumi_cert_18
+    run_range: *runs_18B
+    split: -20
+
+MuonEG_Run2018C:
+    group: data
+    era: 2018UL
+    db: das:/MuonEG/Run2018C-UL2018_MiniAODv2_NanoAODv9-v1/NANOAOD
+    certified_lumi_file: *lumi_cert_18
+    run_range: *runs_18C
+    split: -20
+
+MuonEG_Run2018D:
+    group: data
+    era: 2018UL
+    db: das:/MuonEG/Run2018D-UL2018_MiniAODv2_NanoAODv9-v1/NANOAOD
+    certified_lumi_file: *lumi_cert_18
+    run_range: *runs_18D
+    split: -20
+
 ## 2017 data
 
 SingleMuon_Run2017B:

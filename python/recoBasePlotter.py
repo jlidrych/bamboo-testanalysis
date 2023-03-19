@@ -58,7 +58,7 @@ class recoBasePlotter(basePlotter):
 
         twoMuTriggerSel,oneMuTriggerSel = defs.buildMuonSelections(tree, noSel, self.muons, self.vetoMuons, self.electrons, self.vetoElectrons, sample, era, self.isMC(sample))
         twoEleTriggerSel,oneEleTriggerSel = defs.buildElectronSelections(tree, noSel, self.muons, self.vetoMuons, self.electrons, self.vetoElectrons, sample, era, self.isMC(sample))
-
+        oneEleoneMuTriggerSel = defs.buildElectronMuonSelections(tree, noSel, self.muons, self.vetoMuons, self.electrons, self.vetoElectrons, sample, era, self.isMC(sample))
         # Pre-compute JEC and jetMet variations here, as this is the last step before using jets
         # Call it twice, but the selections are orthogonal, so it will only execute once per event
         # Only for MC since for data tree._Jet does not exist (we just use the default jet collection)
@@ -67,13 +67,14 @@ class recoBasePlotter(basePlotter):
             forceDefine(tree._Jet.calcProd, oneEleTriggerSel)
             forceDefine(tree._Jet.calcProd, twoMuTriggerSel)
             forceDefine(tree._Jet.calcProd, twoEleTriggerSel)
+            forceDefine(tree._Jet.calcProd, oneEleoneMuTriggerSel)
             if self.bTagWeight:
                 forceDefine(self.bTagWeight, oneMuTriggerSel)
                 forceDefine(self.bTagWeight, oneEleTriggerSel)
                 forceDefine(self.bTagWeight, twoMuTriggerSel)
                 forceDefine(self.bTagWeight, twoEleTriggerSel)
 
-        return oneMuTriggerSel,oneEleTriggerSel,twoMuTriggerSel,twoEleTriggerSel
+        return oneMuTriggerSel,oneEleTriggerSel,twoMuTriggerSel,twoEleTriggerSel,oneEleoneMuTriggerSel
 
     def defineObjects(self, tree, noSel, sample=None, sampleCfg=None, **kwargs):
         super().defineObjects(tree, noSel, sample, sampleCfg, **kwargs)

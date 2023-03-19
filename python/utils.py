@@ -41,6 +41,8 @@ def getOpts(uname, **kwargs):
         label = "1 lepton (e/#mu)"
     elif "2lep" in uname:
         label = "2 leptons (ee/#mu#mu)"
+    elif "elemu" in uname:
+        label = "2 leptons (e#mu)"
     if "gen" in uname:
         label = "Gen: " + label
     if "0j" in uname:

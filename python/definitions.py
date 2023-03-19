@@ -183,7 +183,9 @@ def triggerDef(HLT,era):
     if era == '2018UL':
         triggersPerPrimaryDataset = {
             "SingleMuon":[HLT.IsoMu24],
-            "EGamma":[HLT.Ele32_WPTight_Gsf, HLT.Ele28_eta2p1_WPTight_Gsf_HT150]
+            "EGamma":[HLT.Ele32_WPTight_Gsf, HLT.Ele28_eta2p1_WPTight_Gsf_HT150],
+            "MuonEG":[HLT.Mu8_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ]
+
         }
     return triggersPerPrimaryDataset
 
@@ -637,6 +639,43 @@ def buildElectronSelections(tree, noSel, muons, vetoMuons, electrons, vetoElectr
                                     weight=triggerSFWeights)
 
     return twoEleTriggerSel, oneEleTriggerSel
+
+def buildElectronMuonSelections(tree, noSel, muons, vetoMuons, electrons, vetoElectrons, sample, era, isMC):
+    scaleFactorselemu = []
+
+    if isMC:
+        muonRecoSF = getScaleFactor(era, noSel, systName="muon_reco")
+        muonIDSF = getScaleFactor(era, noSel, systName="muon_ID")
+        muonIsoSF = getScaleFactor(era, noSel, systName="muon_iso")
+        eleRecoSF = getScaleFactor(era, noSel, systName="electron_reco")
+        eleIDSF = getScaleFactor(era, noSel, systName="electron_ID")
+
+        scaleFactors1mu = [ muonRecoSF(muons[0])*eleRecoSF(electrons[0]), muonIDSF(muons[0])*eleIDSF(electrons[0]), muonIsoSF(muons[0]) ]
+
+
+    oneMuEleSel = noSel.refine("electronmuon",
+                    cut=op.AND(
+                        op.rng_len(muons) == 1,
+                        op.rng_len(vetoMuons) == 1,
+                        op.rng_len(electrons) == 1,
+                        op.rng_len(vetoElectrons) == 1,
+                        electrons[0].charge != muons[0].charge
+                    ),
+                    weight=scaleFactorselemu
+                )
+
+
+    triggerSFWeights = []
+    if isMC:
+        muonTriggerSF = getScaleFactor(era, oneMuEleSel, systName="muon_trigger")
+        triggerSFWeights.append(muonTriggerSF(muons[0]))
+        triggerSFWeights.append(getL1PrefiringSystematic(tree))
+    oneEleoneMuTriggerSel = oneMuEleSel.refine("electronmuonTrigger",
+                                                cut=muonTriggerDef(tree.HLT, sample, era, isMC),
+                                                weight=triggerSFWeights)
+
+    return oneEleoneMuTriggerSel
+    
 
 def get_bTagSF_fixWP(wp, flav, era, sel, use_nominal_jet_pt=False, heavy_method="comb",
                     syst_prefix="btagSF_deepjet_fixWP_", decorr_wps=False, decorr_eras=True, full_scheme=False, full_scheme_mapping=None, defineOnFirstUse=True,
